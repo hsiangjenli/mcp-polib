@@ -1,0 +1,13 @@
+site_name: Python MCP Template
+site_author: Your Name
+theme:
+  name: readthedocs
+plugins:
+  - search
+  - neoteroi.mkdocsoad
+nav:
+  - Home: index.md
+  - API Reference:
+    - Endpoints: reference/endpoints.md
+    - Swagger(neoteroi.mkdocsoad): reference/endpoints_swagger.md
+    - Data Models: reference/models.md
