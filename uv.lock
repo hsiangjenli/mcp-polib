@@ -632,6 +632,18 @@ wheels = [
 ]
 
 [[package]]
+name = "powrap"
+version = "1.0.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "tqdm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c0/fa/ef1bdecdf1df61c6c4b56509c1c231ade78d43d0f2a49ab8ee276ddbbe48/powrap-1.0.2.tar.gz", hash = "sha256:4f6465dec20f24ab830e694d92bc69291bbde925e4715e42df8e5033b12e83e4", size = 6795, upload-time = "2024-11-15T09:50:31.437Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ad/42/ec7aa281b7b8a4b0b40f9de7ce31bbe4450e00a0b6752b1a2eab28c8ea98/powrap-1.0.2-py3-none-any.whl", hash = "sha256:39a925a36e62cea98a0772014f97eb216dbca11dcc4199f45c813ef8524ece65", size = 5791, upload-time = "2024-11-15T09:50:29.751Z" },
+]
+
+[[package]]
 name = "pycparser"
 version = "2.22"
 source = { registry = "https://pypi.org/simple" }
@@ -763,6 +775,7 @@ dependencies = [
     { name = "mkdocs-gen-files" },
     { name = "neoteroi-mkdocs" },
     { name = "polib" },
+    { name = "powrap" },
     { name = "pydantic" },
     { name = "requests" },
 ]
@@ -775,6 +788,7 @@ requires-dist = [
     { name = "mkdocs-gen-files", specifier = ">=0.5.0" },
     { name = "neoteroi-mkdocs", specifier = ">=1.1.3" },
     { name = "polib", specifier = ">=1.2.0" },
+    { name = "powrap", specifier = ">=0.4.0" },
     { name = "pydantic", specifier = ">=2.11.7" },
     { name = "requests", specifier = ">=2.32.5" },
 ]
@@ -1010,6 +1024,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ce/20/08dfcd9c983f6a6f4a1000d934b9e6d626cff8d2eeb77a89a68eef20a2b7/starlette-0.46.2.tar.gz", hash = "sha256:7f7361f34eed179294600af672f565727419830b54b7b084efe44bb82d2fccd5", size = 2580846, upload-time = "2025-04-13T13:56:17.942Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8b/0c/9d30a4ebeb6db2b25a841afbb80f6ef9a854fc3b41be131d249a977b4959/starlette-0.46.2-py3-none-any.whl", hash = "sha256:595633ce89f8ffa71a015caed34a5b2dc1c0cdb3f0f1fbd1e69339cf2abeec35", size = 72037, upload-time = "2025-04-13T13:56:16.21Z" },
+]
+
+[[package]]
+name = "tqdm"
+version = "4.67.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "colorama", marker = "sys_platform == 'win32'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a8/4b/29b4ef32e036bb34e4ab51796dd745cdba7ed47ad142a9f4a1eb8e0c744d/tqdm-4.67.1.tar.gz", hash = "sha256:f8aef9c52c08c13a65f30ea34f4e5aac3fd1a34959879d7e59e63027286627f2", size = 169737, upload-time = "2024-11-24T20:12:22.481Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl", hash = "sha256:26445eca388f82e72884e0d580d5464cd801a3ea01e63e5601bdff9ba6a48de2", size = 78540, upload-time = "2024-11-24T20:12:19.698Z" },
 ]
 
 [[package]]
