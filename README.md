@@ -17,6 +17,16 @@ This template leverages **fastmcp** and **FastAPI** to seamlessly integrate MCP 
 - **Documentation-as-Code**: Automatically generate and deploy documentation using MkDocs. This process also utilizes the `openapi.json` file to ensure API documentation is up-to-date.
 - **FastAPI Integration**: Build robust APIs with OpenAPI support.
 
+## 🧰 MCP Tools
+
+The following tools are available for PO file manipulation:
+
+- **`read_po`**: Reads a `.po` file and returns a list of entries.
+- **`write_po`**: Writes entries to a `.po` file. Supports **partial updates** by merging provided entries into the existing file (updating matches, appending new ones, and preserving others). Automatically formats the file using `uvx powrap --modified`.
+- **`read_po_entry_with_context`**: Reads a specific entry by `msgid` along with its surrounding context (preceding and succeeding entries) to assist with translation.
+- **`find_fuzzy_entries`**: Scans a `.po` file and returns all entries marked as "fuzzy".
+
+
 ## 🛠️ Getting Started
 
 ### Local Development
@@ -41,27 +51,29 @@ This template leverages **fastmcp** and **FastAPI** to seamlessly integrate MCP 
 
 1. Build the Docker image:
    ```bash
-   docker build -t python-mcp-template:latest .
+   docker build -t mcp-pofile:latest .
    ```
 
 2. Run the container:
    ```bash
-   docker run -i --rm -p 8000:8000 python-mcp-template:latest
+   docker run -i --rm -p 8000:8000 mcp-pofile:latest
    ```
 
 3. Run MCP Server:
   ```json
   {
     "mcpServers": {
-      "python-mcp-template": {
+      "mcp-pofile": {
         "command": "docker",
         "args": [
           "run",
           "--rm",
           "-i",
+          "-v",
+          "/Users:/Users", 
           "-p",
           "8000:8000",
-          "python-mcp-template:latest"
+          "mcp-pofile:latest"
         ]
       }
     }
