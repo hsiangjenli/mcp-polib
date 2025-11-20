@@ -3,7 +3,7 @@
 echo "Building documentation..."
 
 echo "Step 1: Exporting OpenAPI schema..."
-# python scripts/export_openapi.py
+python scripts/export_openapi.py
 
 echo "Step 2: Converting OpenAPI to Markdown..."
 # python scripts/openapi_to_markdown.py
