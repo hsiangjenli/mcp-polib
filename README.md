@@ -51,19 +51,19 @@ The following tools are available for PO file manipulation:
 
 1. Build the Docker image:
    ```bash
-   docker build -t mcp-pofile:latest .
+   docker build -t mcp-polib:latest .
    ```
 
 2. Run the container:
    ```bash
-   docker run -i --rm -p 8000:8000 mcp-pofile:latest
+   docker run -i --rm -p 8000:8000 mcp-polib:latest
    ```
 
 3. Run MCP Server:
   ```json
   {
     "mcpServers": {
-      "mcp-pofile": {
+      "mcp-polib": {
         "command": "docker",
         "args": [
           "run",
@@ -73,7 +73,7 @@ The following tools are available for PO file manipulation:
           "/Users:/Users", 
           "-p",
           "8000:8000",
-          "mcp-pofile:latest"
+          "mcp-polib:latest"
         ]
       }
     }
