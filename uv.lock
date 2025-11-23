@@ -805,9 +805,6 @@ source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "fastmcp" },
-    { name = "mkdocs" },
-    { name = "mkdocs-gen-files" },
-    { name = "neoteroi-mkdocs" },
     { name = "polib" },
     { name = "powrap" },
     { name = "pydantic" },
@@ -816,6 +813,9 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "mkdocs" },
+    { name = "mkdocs-gen-files" },
+    { name = "neoteroi-mkdocs" },
     { name = "pytest" },
 ]
 
@@ -823,9 +823,6 @@ dev = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.116.0" },
     { name = "fastmcp", specifier = ">=2.10.5" },
-    { name = "mkdocs", specifier = ">=1.6.1" },
-    { name = "mkdocs-gen-files", specifier = ">=0.5.0" },
-    { name = "neoteroi-mkdocs", specifier = ">=1.1.3" },
     { name = "polib", specifier = ">=1.2.0" },
     { name = "powrap", specifier = ">=0.4.0" },
     { name = "pydantic", specifier = ">=2.11.7" },
@@ -833,7 +830,12 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "pytest", specifier = ">=9.0.1" }]
+dev = [
+    { name = "mkdocs", specifier = ">=1.6.1" },
+    { name = "mkdocs-gen-files", specifier = ">=0.5.0" },
+    { name = "neoteroi-mkdocs", specifier = ">=1.1.3" },
+    { name = "pytest", specifier = ">=9.0.1" },
+]
 
 [[package]]
 name = "python-multipart"
