@@ -123,7 +123,7 @@ async def write_po(request: WritePORequest):
 
     try:
         subprocess.run(
-            ["powrap", "--modified", request.file_path],
+            ["powrap", "--modified", str(path)],
             check=True,
             capture_output=True,
         )
