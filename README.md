@@ -144,13 +144,13 @@ mcp-polib/
 
 Full API documentation is available in:
 - **OpenAPI Spec**: `docs/reference/endpoints_swagger.md`
-- **MkDocs**: Run `mkdocs serve` to view locally
+- **MkDocs**: Run `uv run mkdocs serve` to view locally
 
 To rebuild documentation:
 ```bash
 chmod +x scripts/build_docs.sh
 scripts/build_docs.sh
-mkdocs build
+uv run mkdocs build
 ```
 
 ## 🔧 Technical Stack
