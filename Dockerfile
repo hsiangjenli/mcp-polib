@@ -19,4 +19,4 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked
 
-CMD ["uv", "run", "--with", "fastmcp", "fastmcp", "run", "mcp_tools/main.py", "--transport", "stdio"]
+CMD ["uv", "run", "fastmcp", "run", "mcp_tools/main.py", "--transport", "stdio"]
