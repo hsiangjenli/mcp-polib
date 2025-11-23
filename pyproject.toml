@@ -1,6 +1,6 @@
 [project]
-name = "python-mcp-template"
-version = "0.2.0"
+name = "mcp-polib"
+version = "0.9.3"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
