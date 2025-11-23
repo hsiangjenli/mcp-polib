@@ -362,6 +362,7 @@ Return the target entry plus its surrounding context window.</p>
 <pre><code class="language-json">{
     &quot;file_path&quot;: &quot;string&quot;,
     &quot;msgid&quot;: &quot;string&quot;,
+    &quot;msgctxt&quot;: null,
     &quot;context_size&quot;: 0
 }
 </code></pre>
@@ -379,6 +380,18 @@ accurate. Refer to the schema for more information.</em></p>
             &quot;type&quot;: &quot;string&quot;,
             &quot;title&quot;: &quot;Msgid&quot;,
             &quot;description&quot;: &quot;The msgid of the entry to find.&quot;
+        },
+        &quot;msgctxt&quot;: {
+            &quot;anyOf&quot;: [
+                {
+                    &quot;type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;null&quot;
+                }
+            ],
+            &quot;title&quot;: &quot;Msgctxt&quot;,
+            &quot;description&quot;: &quot;Optional message context to disambiguate entries with the same msgid.&quot;
         },
         &quot;context_size&quot;: {
             &quot;type&quot;: &quot;integer&quot;,
@@ -691,6 +704,10 @@ accurate. Refer to the schema for more information.</em></p>
 <tr>
 <td>file_path</td>
 <td>string</td>
+</tr>
+<tr>
+<td>msgctxt</td>
+<td></td>
 </tr>
 <tr>
 <td>msgid</td>

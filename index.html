@@ -208,6 +208,7 @@
 </ol>
 <h3 id="configure-in-claude-desktop">Configure in Claude Desktop</h3>
 <p>To use this server with Claude Desktop, add the following to your <code>claude_desktop_config.json</code>:</p>
+<p><strong>macOS:</strong></p>
 <pre><code class="language-json">{
   &quot;mcpServers&quot;: {
     &quot;mcp-polib&quot;: {
@@ -224,7 +225,40 @@
   }
 }
 </code></pre>
-<p>Replace <code>/Users:/Users</code> with the appropriate path mapping for your system if needed.</p>
+<p><strong>Linux:</strong></p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;mcp-polib&quot;: {
+      &quot;command&quot;: &quot;docker&quot;,
+      &quot;args&quot;: [
+        &quot;run&quot;,
+        &quot;--rm&quot;,
+        &quot;-i&quot;,
+        &quot;-v&quot;,
+        &quot;/home:/home&quot;,
+        &quot;mcp-polib:latest&quot;
+      ]
+    }
+  }
+}
+</code></pre>
+<p><strong>Windows:</strong></p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;mcp-polib&quot;: {
+      &quot;command&quot;: &quot;docker&quot;,
+      &quot;args&quot;: [
+        &quot;run&quot;,
+        &quot;--rm&quot;,
+        &quot;-i&quot;,
+        &quot;-v&quot;,
+        &quot;C:\\Users:C:\\Users&quot;,
+        &quot;mcp-polib:latest&quot;
+      ]
+    }
+  }
+}
+</code></pre>
 <h2 id="project-structure">📂 Project Structure</h2>
 <pre><code>mcp-polib/
 ├── mcp_tools/
@@ -247,11 +281,11 @@
 <h2 id="documentation">📚 Documentation</h2>
 <p>Full API documentation is available in:
 - <strong>OpenAPI Spec</strong>: <code>docs/reference/endpoints_swagger.md</code>
-- <strong>MkDocs</strong>: Run <code>mkdocs serve</code> to view locally</p>
+- <strong>MkDocs</strong>: Run <code>uv run mkdocs serve</code> to view locally</p>
 <p>To rebuild documentation:</p>
 <pre><code class="language-bash">chmod +x scripts/build_docs.sh
 scripts/build_docs.sh
-mkdocs build
+uv run mkdocs build
 </code></pre>
 <h2 id="technical-stack">🔧 Technical Stack</h2>
 <ul>
@@ -313,5 +347,5 @@ mkdocs build
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-11-23 16:50:01.314494+00:00
+Build Date UTC : 2025-11-23 17:14:51.219511+00:00
 -->

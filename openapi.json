@@ -293,6 +293,18 @@
             "title": "Msgid",
             "description": "The msgid of the entry to find."
           },
+          "msgctxt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Msgctxt",
+            "description": "Optional message context to disambiguate entries with the same msgid."
+          },
           "context_size": {
             "type": "integer",
             "title": "Context Size",
