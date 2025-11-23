@@ -16,8 +16,8 @@ from mcp_tools.schemas import (
 )
 
 app = FastAPI(
-    title="Python MCP Template",
-    description="A template for creating MCP-compliant FastAPI services.",
+    title="polib MCP Server",
+    description="A server to read and write PO files using polib",
     version="0.1.0",
 )
 
