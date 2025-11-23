@@ -16,7 +16,4 @@ RUN apt-get update && apt-get install -y gettext && rm -rf /var/lib/apt/lists/*
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev
 
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked
-
 CMD ["uv", "run", "fastmcp", "run", "mcp_tools/main.py", "--transport", "stdio"]
