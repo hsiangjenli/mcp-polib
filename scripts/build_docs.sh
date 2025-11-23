@@ -12,4 +12,4 @@ echo "Step 3: Building MkDocs site..."
 uv run mkdocs build
 
 echo "Documentation build complete!"
-echo "You can serve it with: mkdocs serve"
+echo "You can serve it with: uv run mkdocs serve"
