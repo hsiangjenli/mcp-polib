@@ -11,10 +11,9 @@ ENV UV_PROJECT_ENVIRONMENT=/workspace/.venv \
     UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy
 
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-dev
+RUN apt-get update && apt-get install -y gettext && rm -rf /var/lib/apt/lists/*
 
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked
+    uv sync --no-dev
 
-CMD ["uv", "run", "--with", "fastmcp", "fastmcp", "run", "mcp_tools/main.py", "--transport", "stdio"]
+CMD ["uv", "run", "fastmcp", "run", "mcp_tools/main.py", "--transport", "stdio"]

@@ -3,13 +3,13 @@
 echo "Building documentation..."
 
 echo "Step 1: Exporting OpenAPI schema..."
-python scripts/export_openapi.py
+uv run scripts/export_openapi.py
 
 echo "Step 2: Converting OpenAPI to Markdown..."
-python scripts/openapi_to_markdown.py
+# uv run scripts/openapi_to_markdown.py  # Temporarily disabled - using neoteroi.mkdocsoad plugin instead
 
 echo "Step 3: Building MkDocs site..."
-mkdocs build
+uv run mkdocs build
 
 echo "Documentation build complete!"
-echo "You can serve it with: mkdocs serve"
+echo "You can serve it with: uv run mkdocs serve"

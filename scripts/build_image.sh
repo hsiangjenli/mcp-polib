@@ -1,6 +1,7 @@
 #!/bin/bash
 
+USERNAME="hsiangjenli"
+IMAGE_NAME="$USERNAME/mcp-polib"
 date_tag=$(date +%Y-%m-%d)
 
-docker build --no-cache -t python-mcp-template:$date_tag .
-docker tag python-mcp-template:$date_tag python-mcp-template:latest
+docker build --no-cache -t $IMAGE_NAME:$date_tag -t $IMAGE_NAME:latest --push .
