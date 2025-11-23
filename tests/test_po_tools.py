@@ -101,8 +101,8 @@ def test_read_po_context():
 
 
 def test_write_po_powrap():
-    # This test assumes uvx is available or we might need to mock it.
-    # For simplicity in this environment, we'll try to run it, but if uvx is missing
+    # This test assumes powrap is available or we might need to mock it.
+    # For simplicity in this environment, we'll try to run it, but if powrap is missing
     # it might fail. However, the user environment likely has it.
     # If we want to be safe, we can mock subprocess.run.
 
