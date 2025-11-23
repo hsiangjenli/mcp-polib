@@ -98,6 +98,7 @@ All endpoints operate on absolute file paths to PO files:
 
 To use this server with Claude Desktop, add the following to your `claude_desktop_config.json`:
 
+**macOS:**
 ```json
 {
   "mcpServers": {
@@ -116,7 +117,43 @@ To use this server with Claude Desktop, add the following to your `claude_deskto
 }
 ```
 
-Replace `/Users:/Users` with the appropriate path mapping for your system if needed.
+**Linux:**
+```json
+{
+  "mcpServers": {
+    "mcp-polib": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "-v",
+        "/home:/home",
+        "mcp-polib:latest"
+      ]
+    }
+  }
+}
+```
+
+**Windows:**
+```json
+{
+  "mcpServers": {
+    "mcp-polib": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "-v",
+        "C:\\Users:C:\\Users",
+        "mcp-polib:latest"
+      ]
+    }
+  }
+}
+```
 
 ## 📂 Project Structure
 
