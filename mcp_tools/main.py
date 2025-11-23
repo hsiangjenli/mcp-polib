@@ -127,6 +127,12 @@ async def write_po(request: WritePORequest):
             check=True,
             capture_output=True,
         )
+    except FileNotFoundError:
+        message = (
+            f"Successfully wrote to {request.file_path}, but powrap is not available. "
+            f"Install powrap or ensure it is in your PATH to format PO files."
+        )
+        return WritePOResponse(success=True, message=message)
     except subprocess.CalledProcessError as exc:
         stderr = exc.stderr.decode() if exc.stderr else ""
         stdout = exc.stdout.decode() if exc.stdout else ""
