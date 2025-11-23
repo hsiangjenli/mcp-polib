@@ -1,0 +1,456 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "polib MCP Server",
+    "description": "A server to read and write PO files using polib",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/po/read": {
+      "post": {
+        "summary": "Read Po",
+        "description": "Return every entry from the requested PO file.",
+        "operationId": "read_po",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadPORequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadPOResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/po/write": {
+      "post": {
+        "summary": "Write Po",
+        "description": "Create or update entries in a PO file and format it with powrap.",
+        "operationId": "write_po",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WritePORequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WritePOResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/po/read_context": {
+      "post": {
+        "summary": "Read Po Context",
+        "description": "Return the target entry plus its surrounding context window.",
+        "operationId": "read_po_context",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadPOContextRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadPOContextResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/po/find_fuzzy": {
+      "post": {
+        "summary": "Find Fuzzy",
+        "description": "List every entry flagged as fuzzy in the provided PO file.",
+        "operationId": "find_fuzzy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindFuzzyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindFuzzyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FindFuzzyRequest": {
+        "properties": {
+          "file_path": {
+            "type": "string",
+            "title": "File Path",
+            "description": "Absolute path to the .po file to read."
+          }
+        },
+        "type": "object",
+        "required": [
+          "file_path"
+        ],
+        "title": "FindFuzzyRequest"
+      },
+      "FindFuzzyResponse": {
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/POEntry"
+            },
+            "type": "array",
+            "title": "Entries",
+            "description": "List of fuzzy entries found in the PO file."
+          }
+        },
+        "type": "object",
+        "required": [
+          "entries"
+        ],
+        "title": "FindFuzzyResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "POEntry": {
+        "properties": {
+          "msgid": {
+            "type": "string",
+            "title": "Msgid",
+            "description": "The untranslated string."
+          },
+          "msgstr": {
+            "type": "string",
+            "title": "Msgstr",
+            "description": "The translated string."
+          },
+          "msgctxt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Msgctxt",
+            "description": "Context for the message."
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment",
+            "description": "Translator comments."
+          },
+          "tcomment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tcomment",
+            "description": "Extracted comments."
+          },
+          "occurrences": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Occurrences",
+            "description": "List of occurrences (file path and line number)."
+          },
+          "flags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Flags",
+            "description": "List of flags (e.g., fuzzy)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "msgid",
+          "msgstr"
+        ],
+        "title": "POEntry"
+      },
+      "ReadPOContextRequest": {
+        "properties": {
+          "file_path": {
+            "type": "string",
+            "title": "File Path",
+            "description": "Absolute path to the .po file to read."
+          },
+          "msgid": {
+            "type": "string",
+            "title": "Msgid",
+            "description": "The msgid of the entry to find."
+          },
+          "context_size": {
+            "type": "integer",
+            "title": "Context Size",
+            "description": "Number of entries before and after to include.",
+            "default": 1
+          }
+        },
+        "type": "object",
+        "required": [
+          "file_path",
+          "msgid"
+        ],
+        "title": "ReadPOContextRequest"
+      },
+      "ReadPOContextResponse": {
+        "properties": {
+          "target_entry": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/POEntry"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The requested entry."
+          },
+          "context_before": {
+            "items": {
+              "$ref": "#/components/schemas/POEntry"
+            },
+            "type": "array",
+            "title": "Context Before",
+            "description": "Entries preceding the target."
+          },
+          "context_after": {
+            "items": {
+              "$ref": "#/components/schemas/POEntry"
+            },
+            "type": "array",
+            "title": "Context After",
+            "description": "Entries succeeding the target."
+          }
+        },
+        "type": "object",
+        "required": [
+          "context_before",
+          "context_after"
+        ],
+        "title": "ReadPOContextResponse"
+      },
+      "ReadPORequest": {
+        "properties": {
+          "file_path": {
+            "type": "string",
+            "title": "File Path",
+            "description": "Absolute path to the .po file to read."
+          }
+        },
+        "type": "object",
+        "required": [
+          "file_path"
+        ],
+        "title": "ReadPORequest"
+      },
+      "ReadPOResponse": {
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/POEntry"
+            },
+            "type": "array",
+            "title": "Entries",
+            "description": "List of entries parsed from the PO file."
+          }
+        },
+        "type": "object",
+        "required": [
+          "entries"
+        ],
+        "title": "ReadPOResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WritePORequest": {
+        "properties": {
+          "file_path": {
+            "type": "string",
+            "title": "File Path",
+            "description": "Absolute path to the .po file to write."
+          },
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/POEntry"
+            },
+            "type": "array",
+            "title": "Entries",
+            "description": "List of entries to write to the PO file."
+          }
+        },
+        "type": "object",
+        "required": [
+          "file_path",
+          "entries"
+        ],
+        "title": "WritePORequest"
+      },
+      "WritePOResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "description": "Whether the write operation was successful."
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "Status message."
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "message"
+        ],
+        "title": "WritePOResponse"
+      }
+    }
+  }
+}
