@@ -25,8 +25,18 @@ app = FastAPI(
 )
 
 
+def _validate_file_path(file_path: str) -> None:
+    """Validate that file_path is not a command-line option to prevent injection."""
+    if file_path.startswith("-"):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid file path: cannot start with '-' (suspicious command-line option)",
+        )
+
+
 def _ensure_po_exists(file_path: str) -> Path:
     """Resolve the requested file path and raise HTTP 404 if it is absent."""
+    _validate_file_path(file_path)
     path = Path(file_path)
     if not path.exists():
         raise HTTPException(status_code=404, detail=f"File not found: {file_path}")
@@ -77,6 +87,7 @@ async def read_po(request: ReadPORequest):
 @app.post("/po/write", operation_id="write_po", response_model=WritePOResponse)
 async def write_po(request: WritePORequest):
     """Create or update entries in a PO file and format it with powrap."""
+    _validate_file_path(request.file_path)
     path = Path(request.file_path)
     try:
         po = polib.pofile(str(path)) if path.exists() else polib.POFile()
@@ -140,7 +151,11 @@ async def read_po_context(request: ReadPOContextRequest):
     """Return the target entry plus its surrounding context window."""
     po = _load_po(_ensure_po_exists(request.file_path))
     target_index = next(
-        (index for index, entry in enumerate(po) if entry.msgid == request.msgid),
+        (
+            index
+            for index, entry in enumerate(po)
+            if entry.msgid == request.msgid and entry.msgctxt == request.msgctxt
+        ),
         None,
     )
 

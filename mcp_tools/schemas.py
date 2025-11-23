@@ -44,6 +44,10 @@ class WritePOResponse(BaseModel):
 class ReadPOContextRequest(BaseModel):
     file_path: str = Field(..., description="Absolute path to the .po file to read.")
     msgid: str = Field(..., description="The msgid of the entry to find.")
+    msgctxt: Optional[str] = Field(
+        None,
+        description="Optional message context to disambiguate entries with the same msgid.",
+    )
     context_size: int = Field(
         1, description="Number of entries before and after to include."
     )
