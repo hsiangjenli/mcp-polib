@@ -26,6 +26,7 @@ app = FastAPI(
 
 
 def _ensure_po_exists(file_path: str) -> Path:
+    """Resolve the requested file path and raise HTTP 404 if it is absent."""
     path = Path(file_path)
     if not path.exists():
         raise HTTPException(status_code=404, detail=f"File not found: {file_path}")
@@ -33,6 +34,7 @@ def _ensure_po_exists(file_path: str) -> Path:
 
 
 def _load_po(path: Path) -> polib.POFile:
+    """Load a PO file or translate polib errors into HTTP 422 responses."""
     try:
         return polib.pofile(str(path))
     except Exception as exc:  # pragma: no cover - polib error surface
@@ -40,6 +42,7 @@ def _load_po(path: Path) -> polib.POFile:
 
 
 def _to_po_entry(entry: polib.POEntry) -> POEntry:
+    """Convert a polib entry into the API schema representation."""
     occurrences = [f"{filename}:{line}" for filename, line in entry.occurrences]
     # Ensure flags is a plain list to keep response JSON-friendly.
     return POEntry(
@@ -54,22 +57,26 @@ def _to_po_entry(entry: polib.POEntry) -> POEntry:
 
 
 def _parse_occurrence(value: str) -> tuple[str, str]:
+    """Split a serialized occurrence string into filename and line components."""
     filename, line = value.rsplit(":", 1) if ":" in value else (value, "")
     return filename, line
 
 
 def _parse_occurrences(values: Iterable[str]) -> list[tuple[str, str]]:
+    """Deserialize all provided occurrences into polib-compatible tuples."""
     return [_parse_occurrence(value) for value in values]
 
 
 @app.post("/po/read", operation_id="read_po", response_model=ReadPOResponse)
 async def read_po(request: ReadPORequest):
+    """Return every entry from the requested PO file."""
     po = _load_po(_ensure_po_exists(request.file_path))
     return ReadPOResponse(entries=[_to_po_entry(entry) for entry in po])
 
 
 @app.post("/po/write", operation_id="write_po", response_model=WritePOResponse)
 async def write_po(request: WritePORequest):
+    """Create or update entries in a PO file and format it with powrap."""
     path = Path(request.file_path)
     try:
         po = polib.pofile(str(path)) if path.exists() else polib.POFile()
@@ -130,6 +137,7 @@ async def write_po(request: WritePORequest):
     response_model=ReadPOContextResponse,
 )
 async def read_po_context(request: ReadPOContextRequest):
+    """Return the target entry plus its surrounding context window."""
     po = _load_po(_ensure_po_exists(request.file_path))
     target_index = next(
         (index for index, entry in enumerate(po) if entry.msgid == request.msgid),
@@ -157,6 +165,7 @@ async def read_po_context(request: ReadPOContextRequest):
 
 @app.post("/po/find_fuzzy", operation_id="find_fuzzy", response_model=FindFuzzyResponse)
 async def find_fuzzy(request: FindFuzzyRequest):
+    """List every entry flagged as fuzzy in the provided PO file."""
     po = _load_po(_ensure_po_exists(request.file_path))
     entries = [_to_po_entry(entry) for entry in po if "fuzzy" in entry.flags]
     return FindFuzzyResponse(entries=entries)
