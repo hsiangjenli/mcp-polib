@@ -2,11 +2,11 @@
 
 > A Model Context Protocol (MCP) server for reading, writing, and manipulating GNU Gettext `.po` files.
 
-## 🚀 Overview
+## Overview
 
 This project provides a **FastAPI**-based MCP server that exposes a set of tools for working with PO (Portable Object) translation files using the **polib** library. It integrates with **FastMCP** to expose all operations as MCP-compatible tools, enabling seamless integration with language models and AI agents.
 
-## 🌟 Key Features
+## Key Features
 
 - **File Operations**: Read complete PO files or look up specific entries by context.
 - **Entry Management**: Create, update, and modify PO entries with full context support (msgid, msgstr, comments, flags, occurrences).
@@ -16,7 +16,7 @@ This project provides a **FastAPI**-based MCP server that exposes a set of tools
 - **Dockerized Deployment**: Ready-to-use Docker image with Python 3.12 and all dependencies pre-installed.
 - **MCP Transport Flexibility**: Support for both `stdio` and `http` transports.
 
-## 🧰 Available Tools
+## Available Tools
 
 All endpoints operate on absolute file paths to PO files:
 
@@ -52,7 +52,7 @@ All endpoints operate on absolute file paths to PO files:
 - **Output**: All entries marked as "fuzzy"
 - **Use Case**: Find incomplete or uncertain translations for review
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Local Development
 
@@ -155,7 +155,7 @@ To use this server with Claude Desktop, add the following to your `claude_deskto
 }
 ```
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 mcp-polib/
@@ -177,7 +177,7 @@ mcp-polib/
 └── README.md            # This file
 ```
 
-## 📚 Documentation
+## Documentation
 
 Full API documentation is available in:
 - **OpenAPI Spec**: `docs/reference/endpoints_swagger.md`
@@ -190,7 +190,7 @@ scripts/build_docs.sh
 uv run mkdocs build
 ```
 
-## 🔧 Technical Stack
+## Technical Stack
 
 - **Framework**: FastAPI + FastMCP
 - **PO File Handling**: polib
@@ -199,7 +199,3 @@ uv run mkdocs build
 - **Formatting**: powrap
 - **Testing**: pytest
 - **Documentation**: MkDocs
-
-## 📝 License
-
-See LICENSE for details.
